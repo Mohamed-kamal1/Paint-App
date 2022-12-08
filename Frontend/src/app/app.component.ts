@@ -21,7 +21,7 @@ export class AppComponent implements AfterViewInit {
   centerx: any;
   centery: any;
   rectanglef: any = 0; squaref: any = 0; border: any = 0; fill: any = 0;
-  linef: any = 0; se: any = 0;
+  linef: any = 0; selectf: any = 0;
   ellipsef: any = 0; circulef: any = 0;
   trianglef: any = 0;
   colour: string = "#ffffff";
@@ -71,28 +71,34 @@ export class AppComponent implements AfterViewInit {
         else if (this.linef == 1) {
           this.line();
         }
+        else if (this.selectf == 1) {
+          this.select();
+        }
         this.isDrawing = false;
       }
     });
 
   }
   Dsquare() {
-    this.rectanglef = 0, this.linef = 0; this.se = 0; this.squaref = 1; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 1; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
   }
   Drectangle() {
-    this.rectanglef = 1, this.linef = 0; this.se = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 1, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
   }
   Delipse() {
-    this.rectanglef = 0, this.linef = 0; this.se = 0; this.squaref = 0; this.ellipsef = 1; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 1; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
   }
   Dcircle() {
-    this.rectanglef = 0, this.linef = 0; this.se = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 1; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 1; this.trianglef = 0; this.redoo = 0;
   }
   Dtriangle() {
-    this.rectanglef = 0, this.linef = 0; this.se = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 1; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 1; this.redoo = 0;
   }
   Dline() {
-    this.rectanglef = 0, this.linef = 1; this.se = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 1; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+  }
+  Dselect() {
+    this.rectanglef = 0, this.linef = 0; this.selectf = 1; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
   }
 
   square() {
@@ -102,7 +108,6 @@ export class AppComponent implements AfterViewInit {
     this.ctx.strokeStyle = 'black';
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.width);
-
 
     this.store('square', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
     console.log(this.shapes);
@@ -318,6 +323,7 @@ export class AppComponent implements AfterViewInit {
     this.savef = !this.savef;
     if (this.savef) {
       document.getElementById("save-form")!.style.display = "block";
+
     }
     else {
       document.getElementById("save-form")!.style.display = "none";
@@ -334,6 +340,29 @@ export class AppComponent implements AfterViewInit {
 
     }
   }
+
+  select() {
+
+    this.ctx.beginPath();
+    this.width = Math.abs(this.x - this.x2)
+    this.height = Math.abs(this.y - this.y2)
+    this.ctx.strokeStyle = '#CC0000';
+    this.ctx.lineWidth = 2;
+    this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.height);
+    this.isDrawing = false;
+    this.ctx.closePath();
+  }
+
+  DeleteSelected() {
+    this.ctx.clearRect(Math.min(this.x, this.x2) - 1, Math.min(this.y, this.y2) - 1, this.width + 2, this.height + 2);
+  }
+
+  deleteAll() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.shapes.clear();
+  }
+
+
 
 
 }

@@ -1,9 +1,6 @@
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 <div class="field">
   <canvas #canvas width="1420" height="500" style="border: 1px solid black;" id="canvas"></canvas>
-
 </div>
-
 
 <div class="header row">
 
@@ -24,8 +21,9 @@
   <div class="col col-4">
     <button class="btn btn-dark"> Undo</button>
     <button class="btn btn-dark"> Redo</button>
-    <button class="btn btn-dark"> Delete</button>
-    <button class="btn btn-dark"> Delete all</button>
+    <button class="btn btn-dark" (click)="Dselect()">Select</button>
+    <button class="btn btn-dark" (click)="DeleteSelected()"> Delete Selected</button>
+    <button class="btn btn-dark" (click)="deleteAll()"> Delete all</button>
   </div>
 
   <div id="SaveLoad">
