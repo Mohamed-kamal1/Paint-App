@@ -32,6 +32,9 @@ export class AppComponent implements AfterViewInit {
   shapes = new Map();
   redoo = 0;
   savef = false; laodf = false;
+  count = 1;
+
+
 
 
   ngAfterViewInit(): void {
@@ -100,6 +103,8 @@ export class AppComponent implements AfterViewInit {
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.width);
 
+
+    this.store('square', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
     console.log(this.shapes);
     this.isDrawing = false;
     this.ctx.closePath();
@@ -113,9 +118,8 @@ export class AppComponent implements AfterViewInit {
     this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.height);
     this.isDrawing = false;
 
-
+    this.store('rectangle', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
     console.log(this.shapes);
-    console.log(this.ctx.isPointInPath(this.x2, this.y2));
     this.ctx.closePath();
   }
   ellipse() {
@@ -130,7 +134,7 @@ export class AppComponent implements AfterViewInit {
     this.ctx.ellipse(this.centerx, this.centery, this.radiusx, this.radiusy, Math.PI, 0, 2 * Math.PI);
     this.ctx.stroke();
 
-
+    this.store('ellipse', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
     console.log(this.shapes);
     this.isDrawing = false;
 
@@ -145,6 +149,7 @@ export class AppComponent implements AfterViewInit {
     this.centery = Math.abs(this.y2 + this.y) / 2;
     this.ctx.arc(this.centerx, this.centery, this.radiusx, 0, 2 * Math.PI);
 
+    this.store('circle', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
     console.log(this.shapes);
     this.ctx.stroke();
   }
@@ -157,6 +162,8 @@ export class AppComponent implements AfterViewInit {
     this.ctx.lineTo(this.x2, this.y2);
 
     this.ctx.closePath();
+
+    this.store('triangle', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
     console.log(this.shapes);
     this.ctx.stroke();
 
@@ -170,6 +177,8 @@ export class AppComponent implements AfterViewInit {
     this.ctx.lineTo(this.x2, this.y2);
     this.ctx.stroke();
     this.isDrawing = false;
+
+    this.store('line', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
     console.log(this.shapes);
     this.ctx.closePath();
@@ -200,6 +209,10 @@ export class AppComponent implements AfterViewInit {
       if (this.border == 1) {
         this.ctx.strokeStyle = this.Bcolor; this.border = 0;
       }
+      this.count--;
+      this.store('square', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
+      console.log(this.shapes);
+
       this.ctx.stroke();
     }
     else if (this.rectanglef == 1) {
@@ -214,6 +227,9 @@ export class AppComponent implements AfterViewInit {
         this.ctx.strokeStyle = this.Bcolor;
         this.border = 0;
       }
+
+      this.count--;
+      this.store('rectangle', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.stroke();
     }
     else if (this.ellipsef == 1) {
@@ -227,6 +243,8 @@ export class AppComponent implements AfterViewInit {
         this.ctx.fillStyle = this.colour;
         this.ctx.fill(); this.fill = 0;
       }
+      this.count--;
+      this.store('ellipse', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.stroke();
     }
     else if (this.circulef == 1) {
@@ -240,6 +258,9 @@ export class AppComponent implements AfterViewInit {
         this.ctx.fillStyle = this.colour;
         this.ctx.fill(); this.fill = 0;
       }
+
+      this.count--;
+      this.store('circle', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.stroke();
     }
     else if (this.trianglef == 1) {
@@ -257,6 +278,9 @@ export class AppComponent implements AfterViewInit {
       if (this.fill == 1) {
         this.ctx.fill(); this.fill = 0;
       }
+
+      this.count--;
+      this.store('triangle', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.closePath();
       this.ctx.stroke();
 
@@ -274,8 +298,18 @@ export class AppComponent implements AfterViewInit {
       this.ctx.lineTo(this.x2, this.y2);
       this.ctx.stroke();
 
+      this.count--;
+      this.store('line', this.ctx.strokeStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.isDrawing = false;
       this.ctx.closePath();
+
+    }
+  }
+
+  store(shape: any, color: any, border: any, x1: any, y1: any, x2: any, y2: any,) {
+    if (x1 != x2 && y1 != y2) {
+      this.shapes.set(this.count, [shape, color, border, x1, y1, x2, y2]);
+      this.count++;
 
     }
   }
