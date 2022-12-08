@@ -4,7 +4,7 @@ public class Elipse extends Shape{
     private double minor_axis, major_axis, center_x, center_y, area;
     final double PI = 3.14159265359;
 
-    public Eipse(double minor_axis, double major_axis, double center_x, double center_y){
+    public Elipse(double minor_axis, double major_axis, double center_x, double center_y){
         this.minor_axis = minor_axis;
         this.major_axis = major_axis;
         this.center_x = center_x;
@@ -30,7 +30,10 @@ public class Elipse extends Shape{
     }
 
     public double[] getCenter(){
-        return {this.center_x, this.center_y};
+		double[] arr = new double[2];
+		arr[0] = center_x;
+		arr[1] = center_y;
+        return arr;
     }
 
     public double getMajor_axis() {
