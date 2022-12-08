@@ -99,7 +99,6 @@ export class AppComponent implements AfterViewInit {
     this.ctx.strokeStyle = 'black';
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.width);
-    // this.store('square', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
     console.log(this.shapes);
     this.isDrawing = false;
@@ -114,11 +113,9 @@ export class AppComponent implements AfterViewInit {
     this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.height);
     this.isDrawing = false;
 
-    // this.store('rectangle', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
     console.log(this.shapes);
     console.log(this.ctx.isPointInPath(this.x2, this.y2));
-    // console.log(this.history);
     this.ctx.closePath();
   }
   ellipse() {
@@ -133,7 +130,6 @@ export class AppComponent implements AfterViewInit {
     this.ctx.ellipse(this.centerx, this.centery, this.radiusx, this.radiusy, Math.PI, 0, 2 * Math.PI);
     this.ctx.stroke();
 
-    // this.store('ellipse', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
     console.log(this.shapes);
     this.isDrawing = false;
@@ -148,7 +144,6 @@ export class AppComponent implements AfterViewInit {
     this.centerx = Math.abs(this.x2 + this.x) / 2;
     this.centery = Math.abs(this.y2 + this.y) / 2;
     this.ctx.arc(this.centerx, this.centery, this.radiusx, 0, 2 * Math.PI);
-    // this.store('circle', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
     console.log(this.shapes);
     this.ctx.stroke();
@@ -160,10 +155,7 @@ export class AppComponent implements AfterViewInit {
     this.ctx.moveTo(this.x, this.y);
     this.ctx.lineTo(this.x, this.y2);
     this.ctx.lineTo(this.x2, this.y2);
-    ///////////////////////////last added
-    // this.store('triangle', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
-    //////////////////////////////
     this.ctx.closePath();
     console.log(this.shapes);
     this.ctx.stroke();
@@ -177,10 +169,7 @@ export class AppComponent implements AfterViewInit {
     this.ctx.moveTo(this.x, this.y);
     this.ctx.lineTo(this.x2, this.y2);
     this.ctx.stroke();
-    // this.color();
     this.isDrawing = false;
-
-    // this.store('line', 'none', this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
 
     console.log(this.shapes);
     this.ctx.closePath();
