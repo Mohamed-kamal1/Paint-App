@@ -1,3 +1,7 @@
+.field {
+  margin-left: 20px;
+}
+
 .header {
   background-color: rgb(122, 168, 154);
   position: absolute;
@@ -8,24 +12,31 @@
 }
 
 .shape {
-  width: 70px;
+  width: 50px;
   font-weight: bold;
 }
 
-#save-form {
+ul {
   list-style: none;
   padding: 0;
   margin: 0;
   background-color: rgb(122, 168, 154);
   position: absolute;
-  right: 70px;
-  bottom:50px;
   min-width: 100px;
   display: none;
   z-index: 1;
+  bottom: 40px;
 }
 
-#save-form::after {
+#save-form {
+  right: calc(25%);
+}
+
+#load-form {
+  right: calc(18%);
+}
+
+ul::after {
   content: "";
   border: 10px solid;
   border-color: rgb(122, 168, 154) transparent transparent transparent;
@@ -33,34 +44,5 @@
   bottom: -20px;
   right: 80px;
 }
-#save:hover +#save-form  {
-  display: block;
-}
-
-#load-form {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background-color: rgb(122, 168, 154);
-  position: absolute;
-  right: 25px;
-  bottom:50px;
-  min-width: 80px;
-  display: none;
-  z-index: 1;
-}
-
-#load-form::after {
-  content: "";
-  border: 10px solid;
-  border-color: rgb(122, 168, 154) transparent transparent transparent;
-  position: absolute;
-  bottom: -20px;
-  right: 70px;
-}
-#load:hover +#load-form  {
-  display: block;
-}
-
 
 
