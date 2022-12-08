@@ -7,23 +7,28 @@
 
 <div class="header row">
 
-  <div class="col">
+  <div class="col col-4">
     <button class="shape btn btn-danger" (click)="Dsquare()">&#9633;</button>
     <button class="shape btn btn-danger" (click)="Drectangle()">&#9645;</button>
     <button class="shape btn btn-danger" (click)="Delipse()">&#x2B2D;</button>
     <button class="shape btn btn-danger" (click)="Dcircle()">&#9711;</button>
     <button class="shape btn btn-danger" (click)="Dtriangle()">&#9722;</button>
     <button class="shape btn btn-danger" (click)="Dline()">&#9586;</button>
-
-
   </div>
-  <input type="color" class="btn" id="color-fill" (click)="Cfill()">
-  <input type="color" class="btn" id="color-border" (click)="Cborder()">
-  <div class="col">
+
+  <div class="col col-2">
+    <input type="color" class="btn" id="color-fill" (click)="Cfill()">
+    <input type="color" class="btn" id="color-border" (click)="Cborder()">
+  </div>
+
+  <div class="col col-4">
     <button class="btn btn-dark"> Undo</button>
     <button class="btn btn-dark"> Redo</button>
     <button class="btn btn-dark"> Delete</button>
     <button class="btn btn-dark"> Delete all</button>
+  </div>
+
+  <div id="SaveLoad">
     <button id="save" class="btn btn-dark" (click)="displaySave()"> Save </button>
     <ul id="save-form">
       <li><button class="btn btn-outline-dark">SaveAsJson</button></li>

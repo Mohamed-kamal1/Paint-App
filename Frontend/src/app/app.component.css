@@ -29,11 +29,11 @@ ul {
 }
 
 #save-form {
-  right: calc(25%);
+  left: 0;
 }
 
 #load-form {
-  right: calc(18%);
+  left: 50%;
 }
 
 ul::after {
@@ -45,4 +45,7 @@ ul::after {
   right: 80px;
 }
 
-
+#SaveLoad {
+  position: absolute;
+  right: 5%;
+}
