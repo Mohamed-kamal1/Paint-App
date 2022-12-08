@@ -4,7 +4,7 @@ public class Circle extends Shape{
     private double r, area, center_x, center_y;
     final double PI = 3.14159265359;
 
-    public void Circle(double r, double center_x, double center_y){
+    public Circle(double r, double center_x, double center_y){
         this.r = r;
         this.center_x = center_x;
         this.center_y = center_y;
@@ -20,7 +20,10 @@ public class Circle extends Shape{
     }
 
     public double[] getCenter(){
-        return {this.x, this.y};
+		double[] arr = new double[2];
+		arr[0] = center_x;
+		arr[1] = center_y;
+        return arr;
     }
 
     public void setR(double r){
@@ -28,8 +31,8 @@ public class Circle extends Shape{
     }
 
     public void setCenter(double x, double y){
-        this.x = x;
-        this.y = y;
+        this.center_x = x;
+        this.center_y = y;
     }
 
 
