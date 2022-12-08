@@ -346,7 +346,7 @@ export class AppComponent implements AfterViewInit {
     this.ctx.beginPath();
     this.width = Math.abs(this.x - this.x2)
     this.height = Math.abs(this.y - this.y2)
-    this.ctx.strokeStyle = '#CC0000';
+    this.ctx.strokeStyle = '#FF0000';
     this.ctx.lineWidth = 2;
     this.ctx.strokeRect(Math.min(this.x, this.x2), Math.min(this.y, this.y2), this.width, this.height);
     this.isDrawing = false;
