@@ -10,6 +10,10 @@ public class Line extends Shape{
         this.endPoint_y = endPoint_y;
     }
 
+    public Line() {
+
+    }
+
     public void setEndPoint(double endPoint_x, double endPoint_y) {
         this.endPoint_x = endPoint_x;
         this.endPoint_y = endPoint_y;

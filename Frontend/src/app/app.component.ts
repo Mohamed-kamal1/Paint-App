@@ -7,7 +7,7 @@ import { HttpBackend, HttpClient } from '@angular/common/http'
 })
 export class AppComponent implements AfterViewInit {
   title = 'paint';
-  // constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
   @ViewChild('canvas', { static: true })
 
   canvas: any = null;
@@ -33,6 +33,8 @@ export class AppComponent implements AfterViewInit {
   redoo = 0;
   savef = false; laodf = false;
   count = 1;
+  coordinates: number[] = [];
+  back: any;
 
 
 
@@ -363,6 +365,27 @@ export class AppComponent implements AfterViewInit {
   }
 
 
+
+  send() {
+    this.coordinates = [this.shapes.get(this.count)[3], this.shapes.get(this.count)[4], this.shapes.get(this.count)[5], this.shapes.get(this.count)[6]];
+
+    this.http.get('http://localhost:8080/back/shape', {
+      responseType: 'text',
+      params: {
+        id: this.count,
+        type: this.shapes.get(this.count)[0],
+        fill: this.shapes.get(this.count)[1],
+        border: this.shapes.get(this.count)[2],
+        coordinates: this.coordinates
+      },
+      observe: "response"
+
+    })
+      .subscribe((response) => {
+        this.back = response.body;
+      })
+
+  }
 
 
 }
