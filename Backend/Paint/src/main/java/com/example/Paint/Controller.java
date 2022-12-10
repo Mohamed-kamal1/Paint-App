@@ -14,8 +14,6 @@ public class Controller {
 
         ShapeFactory factory =new ShapeFactory();
         Shape shape=factory.createShape(type);
-//        UndoRedo un=new UndoRedo();
         shape.drawShape(id, type,fill, border,coordinates);
-//        un.addShape(shape);
     }
 }
