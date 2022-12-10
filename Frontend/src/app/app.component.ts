@@ -30,7 +30,7 @@ export class AppComponent implements AfterViewInit {
   height: any;
   isDrawing = false;
   shapes = new Map();
-  redoo = 0;
+  redof = 0; undof=0;
   savef = false; laodf = false;
   count = 1;
   coordinates: number[] = [];
@@ -82,25 +82,25 @@ export class AppComponent implements AfterViewInit {
 
   }
   Dsquare() {
-    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 1; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 1; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redof = 0;
   }
   Drectangle() {
-    this.rectanglef = 1, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 1, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redof = 0;
   }
   Delipse() {
-    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 1; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 1; this.circulef = 0; this.trianglef = 0; this.redof = 0;
   }
   Dcircle() {
-    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 1; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 1; this.trianglef = 0; this.redof = 0;
   }
   Dtriangle() {
-    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 1; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 1; this.redof = 0;
   }
   Dline() {
-    this.rectanglef = 0, this.linef = 1; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 1; this.selectf = 0; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redof = 0;
   }
   Dselect() {
-    this.rectanglef = 0, this.linef = 0; this.selectf = 1; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redoo = 0;
+    this.rectanglef = 0, this.linef = 0; this.selectf = 1; this.squaref = 0; this.ellipsef = 0; this.circulef = 0; this.trianglef = 0; this.redof = 0;
   }
 
   square() {
@@ -362,9 +362,8 @@ export class AppComponent implements AfterViewInit {
   deleteAll() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.shapes.clear();
+    this.undof = 1;
   }
-
-
 
   send() {
     this.coordinates = [this.shapes.get(this.count)[3], this.shapes.get(this.count)[4], this.shapes.get(this.count)[5], this.shapes.get(this.count)[6]];

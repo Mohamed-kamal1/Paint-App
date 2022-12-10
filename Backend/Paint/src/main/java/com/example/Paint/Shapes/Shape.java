@@ -4,9 +4,9 @@ public abstract class Shape implements IShape{
     long id;
     String type;
     String fill;
-    long x,y;
+    double x,y;
     String border;
-    long dim1;long dim2;
+    double dim1, dim2;
 
     public long getId() {
         return id;
@@ -32,19 +32,19 @@ public abstract class Shape implements IShape{
         this.fill = fill;
     }
 
-    public long getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(long x) {
+    public void setX(double x) {
         this.x = x;
     }
 
-    public long getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(long y) {
+    public void setY(double y) {
         this.y = y;
     }
 
@@ -56,22 +56,22 @@ public abstract class Shape implements IShape{
         this.border = border;
     }
 
-    public long getDim1() {
+    public double getDim1() {
         return dim1;
     }
 
-    public void setDim1(long dim1) {
+    public void setDim1(double dim1) {
         this.dim1 = dim1;
     }
 
-    public long getDim2() {
+    public double getDim2() {
         return dim2;
     }
 
-    public void setDim2(long dim2) {
+    public void setDim2(double dim2) {
         this.dim2 = dim2;
     }
 
-    public void drawShape(long id, String type, String fill, String border, long[] coordinates) {
+    public void drawShape(long id, String type, String fill, String border, double[] coordinates) {
     }
 }

@@ -38,7 +38,7 @@ public class Circle extends Shape{
 //        this.center_x = x;
 //        this.center_y = y;
 //    }
-public void drawShape(long id, String type, String fill, String border, long[] coordinates) {
+public void drawShape(long id, String type, String fill, String border, double[] coordinates) {
 
     setType("circle");
     setId(id);

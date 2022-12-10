@@ -2,7 +2,7 @@ package com.example.Paint.Shapes;
 
 public class Rectangle extends Shape{
     @Override
-    public void drawShape(long id, String type, String fill, String border, long[] coordinates) {
+    public void drawShape(long id, String type, String fill, String border, double[] coordinates) {
         setType("rectangle");
         setId(id);
         setFill(fill);
