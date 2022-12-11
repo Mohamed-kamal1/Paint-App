@@ -5,7 +5,9 @@
   "projects": {
     "paint": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {"@schematics/angular:application": {
+          "strict": true
+        }},
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -97,5 +99,6 @@
         }
       }
     }
-  }
+  },
+  "defaultProject": "Paint"
 }

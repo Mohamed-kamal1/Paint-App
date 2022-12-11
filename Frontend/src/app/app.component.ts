@@ -1,10 +1,13 @@
 import { Component, Renderer2, HostListener, OnDestroy, ViewChild, ElementRef, AfterViewInit, OnInit } from '@angular/core';
 import { HttpBackend, HttpClient } from '@angular/common/http'
+import { json } from 'stream/consumers';
+import { arrayBuffer } from 'node:stream/consumers';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css', './bootstrap.css']
 })
+
 export class AppComponent implements AfterViewInit {
   title = 'paint';
   constructor(private http: HttpClient) { }
@@ -30,11 +33,13 @@ export class AppComponent implements AfterViewInit {
   height: any;
   isDrawing = false;
   shapes = new Map();
-  redof = 0; undof=0;
+  redof = 0; undof = 0;
   savef = false; laodf = false;
   count = 1;
   coordinates: number[] = [];
   back: any;
+  path: any = "";
+  loadf = 0;
 
 
 
@@ -316,8 +321,8 @@ export class AppComponent implements AfterViewInit {
   store(shape: any, color: any, border: any, x1: any, y1: any, x2: any, y2: any,) {
     if (x1 != x2 && y1 != y2) {
       this.shapes.set(this.count, [shape, color, border, x1, y1, x2, y2]);
+      this.send();
       this.count++;
-
     }
   }
 
@@ -382,6 +387,162 @@ export class AppComponent implements AfterViewInit {
     })
       .subscribe((response) => {
         this.back = response.body;
+      })
+
+  }
+
+  savexml() {
+  }
+  savejson() {
+  }
+  loadxml() {
+
+  }
+  loadjson() {
+
+  }
+  load(map: any) {
+    this.loadf = 1;
+    this.deleteAll();
+
+    for (let item of map.keys()) {
+      let filling = map.get(item)[1];
+      let bordering = map.get(item)[2];
+      let x = map.get(item)[3];
+      let y = map.get(item)[4];
+      let dim1 = map.get(item)[5];
+      let dim2 = map.get(item)[6];
+      if (map.get(item)[0] == 'rectangle') {
+        this.ctx.strokeStyle = bordering;
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(x, y, dim1, dim2);
+        if (filling != 'none') {
+          this.ctx.fillStyle = filling;
+          this.ctx.fillRect(x, y, dim1, dim2);
+        }
+        this.ctx.lineWidth = 2;
+
+        console.log(filling)
+      }
+      else if (map.get(item)[0] == 'square') {
+        this.ctx.strokeStyle = bordering;
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        this.ctx.strokeRect(x, y, dim1, dim1);
+        if (filling != 'none') {
+          this.ctx.fillStyle = filling;
+          this.ctx.fillRect(x, y, dim1, dim1);
+        }
+        this.ctx.lineWidth = 2;
+
+        this.ctx.closePath();
+      }
+      else if (map.get(item)[0] == 'circle') {
+        this.ctx.strokeStyle = bordering;
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        this.ctx.arc(x, y, dim1, 0, 2 * Math.PI);
+        if (filling != 'none') {
+          this.ctx.fillStyle = filling;
+          this.ctx.fill();
+        }
+        this.ctx.stroke();
+        this.ctx.closePath();
+      }
+      else if (map.get(item)[0] == 'ellipse') {
+        this.ctx.strokeStyle = bordering;
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        this.ctx.ellipse(x, y, dim1, dim2, Math.PI, 0, 2 * Math.PI);
+        if (filling != 'none') {
+          this.ctx.fillStyle = filling;
+          this.ctx.fill();
+        }
+        this.ctx.stroke();
+        this.ctx.closePath();
+      }
+      else if (map.get(item)[0] == 'triangle') {
+        this.ctx.strokeStyle = bordering;
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        if (filling != 'none') {
+          this.ctx.fillStyle = filling;
+        }
+        this.ctx.moveTo(x, y);
+        this.ctx.lineTo(x, dim2);
+        this.ctx.lineTo(dim1, dim2);
+        if (filling != 'none') {
+          this.ctx.fill();
+        }
+        this.ctx.closePath();
+        this.ctx.stroke();
+      }
+      else if (map.get(item)[0] == 'line') {
+        this.ctx.strokeStyle = bordering;
+        this.ctx.strokeStyle = filling;
+        this.ctx.beginPath();
+        this.ctx.lineWidth = 2;
+        this.ctx.moveTo(x, y);
+        this.ctx.lineTo(dim1, dim2);
+        this.ctx.stroke();
+        this.isDrawing = false;
+        this.ctx.closePath();
+      }
+    }
+    this.loadf = 0;
+  }
+  undo() {
+    this.redof = 1;
+    this.http.get('http://localhost:8080/back/undo', {
+      responseType: 'json',
+      params: {
+        undo: this.undof,
+      },
+      observe: "response"
+
+    })
+      .subscribe((response) => {
+
+        var map = new Map<any, any>();
+        for (var value in response.body) {
+          let myObj: { [index: string]: any } = {};
+          myObj = response.body;
+
+          map.set(Number(value), myObj[value]);
+        }
+        this.shapes = map;
+        console.log(this.shapes);
+        this.load(new Map(map));
+        if (this.undof == 1) {
+          this.undof = 0;
+        }
+      })
+
+  }
+  redo() {
+    this.http.get('http://localhost:8080/back/redo', {
+      responseType: 'json',
+      params: {
+        redo: this.redof,
+      },
+      observe: "response"
+
+    })
+      .subscribe((response) => {
+
+
+
+        var map = new Map<any, any>();
+        for (var value in response.body) {
+          let myObj: { [index: string]: any } = {};
+          myObj = response.body;
+
+          map.set(Number(value), myObj[value]);
+        }
+        this.shapes = map;
+        console.log(this.shapes);
+        this.load(new Map(this.shapes));
       })
 
   }

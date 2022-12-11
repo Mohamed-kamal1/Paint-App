@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
 <div class="field">
   <canvas #canvas width="1420" height="500" style="border: 1px solid black;" id="canvas"></canvas>
 </div>
@@ -19,8 +23,8 @@
   </div>
 
   <div class="col col-4">
-    <button class="btn btn-dark"> Undo</button>
-    <button class="btn btn-dark"> Redo</button>
+    <button class="btn btn-dark" (click)="undo()"> Undo</button>
+    <button class="btn btn-dark" (click)="redo()"> Redo</button>
     <button class="btn btn-dark" (click)="Dselect()">Select</button>
     <button class="btn btn-dark" (click)="DeleteSelected()"> Delete Selected</button>
     <button class="btn btn-dark" (click)="deleteAll()"> Delete all</button>
@@ -29,13 +33,13 @@
   <div id="SaveLoad">
     <button id="save" class="btn btn-dark" (click)="displaySave()"> Save </button>
     <ul id="save-form">
-      <li><button class="btn btn-outline-dark">SaveAsJson</button></li>
-      <li><button class="btn btn-outline-dark">SaveAsXml</button></li>
+      <li><button class="btn btn-outline-dark" (click)="savejson()">SaveAsJson</button></li>
+      <li><button class="btn btn-outline-dark" (click)="savexml()">SaveAsXml</button></li>
     </ul>
     <button id="load" class="btn btn-dark" (click)="displayLoad()"> Open</button>
     <ul id="load-form">
-      <li><button class="btn btn-outline-dark">OpenJson</button></li>
-      <li><button class="btn btn-outline-dark">OpenXml</button></li>
+      <li><button class="btn btn-outline-dark" (click)="loadjson()">OpenJson</button></li>
+      <li><button class="btn btn-outline-dark"(click)="loadxml()">OpenXml</button></li>
     </ul>
   </div>
 </div>
