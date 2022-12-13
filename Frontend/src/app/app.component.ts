@@ -221,7 +221,7 @@ export class AppComponent implements AfterViewInit {
       if (this.border == 1) {
         this.ctx.strokeStyle = this.Bcolor; this.border = 0;
       }
-      this.count--;
+      // this.count--;
       this.store('square', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       console.log(this.shapes);
 
@@ -240,7 +240,7 @@ export class AppComponent implements AfterViewInit {
         this.border = 0;
       }
 
-      this.count--;
+      // this.count--;
       this.store('rectangle', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.stroke();
     }
@@ -255,7 +255,7 @@ export class AppComponent implements AfterViewInit {
         this.ctx.fillStyle = this.colour;
         this.ctx.fill(); this.fill = 0;
       }
-      this.count--;
+      // this.count--;
       this.store('ellipse', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.stroke();
     }
@@ -271,7 +271,7 @@ export class AppComponent implements AfterViewInit {
         this.ctx.fill(); this.fill = 0;
       }
 
-      this.count--;
+      // this.count--;
       this.store('circle', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.stroke();
     }
@@ -291,7 +291,7 @@ export class AppComponent implements AfterViewInit {
         this.ctx.fill(); this.fill = 0;
       }
 
-      this.count--;
+      // this.count--;
       this.store('triangle', this.ctx.fillStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.ctx.closePath();
       this.ctx.stroke();
@@ -310,7 +310,7 @@ export class AppComponent implements AfterViewInit {
       this.ctx.lineTo(this.x2, this.y2);
       this.ctx.stroke();
 
-      this.count--;
+      // this.count--;
       this.store('line', this.ctx.strokeStyle, this.ctx.strokeStyle, this.x, this.y, this.x2, this.y2);
       this.isDrawing = false;
       this.ctx.closePath();
@@ -365,9 +365,13 @@ export class AppComponent implements AfterViewInit {
   }
 
   deleteAll() {
+    if (this.loadf == 0) {
+      this.undof = 1
+      this.undo();
+      this.shapes.clear();
+    }
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.shapes.clear();
-    this.undof = 1;
+
   }
 
   send() {
@@ -392,8 +396,10 @@ export class AppComponent implements AfterViewInit {
   }
 
   savexml() {
+
   }
   savejson() {
+
   }
   loadxml() {
 
@@ -401,10 +407,11 @@ export class AppComponent implements AfterViewInit {
   loadjson() {
 
   }
-  load(map: any) {
+  load() {
     this.loadf = 1;
     this.deleteAll();
-
+    let map = new Map<any, any>();
+    map = this.shapes;
     for (let item of map.keys()) {
       let filling = map.get(item)[1];
       let bordering = map.get(item)[2];
@@ -513,7 +520,7 @@ export class AppComponent implements AfterViewInit {
         }
         this.shapes = map;
         console.log(this.shapes);
-        this.load(new Map(map));
+        this.load();
         if (this.undof == 1) {
           this.undof = 0;
         }
@@ -542,7 +549,7 @@ export class AppComponent implements AfterViewInit {
         }
         this.shapes = map;
         console.log(this.shapes);
-        this.load(new Map(this.shapes));
+        this.load();
       })
 
   }

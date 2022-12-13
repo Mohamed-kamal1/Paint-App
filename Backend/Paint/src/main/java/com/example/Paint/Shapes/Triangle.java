@@ -8,10 +8,10 @@ public class Triangle extends Shape{
         setId(id);
         setFill(fill);
         setBorder(border);
-        setX(Math.min(coordinates[0],coordinates[2]));
-        setY(Math.min(coordinates[1],coordinates[3]));
-        setDim1(Math.abs(coordinates[0]-coordinates[2])); // base
-        setDim2(Math.abs(coordinates[1]-coordinates[3])); // height
+        setX(coordinates[0]);
+        setY(coordinates[1]);
+        setDim1(coordinates[2]);
+        setDim2(coordinates[3]);
 
 
     }
