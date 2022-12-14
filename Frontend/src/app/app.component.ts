@@ -394,19 +394,90 @@ export class AppComponent implements AfterViewInit {
       })
 
   }
-
+  clearsave() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.shapes.clear();
+    this.count = 1;
+  }
   savexml() {
+    this.path = prompt("Enter the path of the file ", "C:/CSED/Programming 2/Labs/Paint-App/draw.xml");
 
+    this.http.get('http://localhost:8080/back/savexml', {
+      responseType: 'text',
+      params: {
+        path: this.path,
+      },
+      observe: "response"
+
+    })
+      .subscribe((response) => {
+        var text = response.body
+        this.clearsave();
+      })
   }
   savejson() {
+    this.path = prompt("Enter the path of the file ", "C:/CSED/Programming 2/Labs/Paint-App/draw.json");
 
+    this.http.get('http://localhost:8080/back/savejson', {
+      responseType: 'text',
+      params: {
+        path: this.path,
+      },
+      observe: "response"
+
+    })
+      .subscribe((response) => {
+        var text = response.body
+        this.clearsave();
+      })
   }
   loadxml() {
+    this.path = prompt("Enter the path of the file ", "C:/CSED/Programming 2/Labs/Paint-App/draw.xml");
+    this.http.get('http://localhost:8080/back/loadxml', {
+      responseType: 'json',
+      params: {
+        path: this.path,
+      },
+      observe: "response"
 
+    })
+      .subscribe((response) => {
+        var map = new Map<any, any>();
+        for (var value in response.body) {
+          let myObj: { [index: string]: any } = {};
+          myObj = response.body;
+
+          map.set(Number(value), myObj[value]);
+        }
+        this.shapes = map;
+        this.count = this.shapes.size + 1
+        this.load();
+      })
   }
   loadjson() {
+    this.path = prompt("Enter the path of the file ", "C:/CSED/Programming 2/Labs/Paint-App/draw.json");
+    this.http.get('http://localhost:8080/back/loadjson', {
+      responseType: 'json',
+      params: {
+        path: this.path,
+      },
+      observe: "response"
 
+    })
+      .subscribe((response) => {
+        var map = new Map<any, any>();
+        for (var value in response.body) {
+          let myObj: { [index: string]: any } = {};
+          myObj = response.body;
+
+          map.set(Number(value), myObj[value]);
+        }
+        this.shapes = map;
+        this.count = this.shapes.size + 1
+        this.load();
+      })
   }
+
   load() {
     this.loadf = 1;
     this.deleteAll();

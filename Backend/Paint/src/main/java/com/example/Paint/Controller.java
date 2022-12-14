@@ -53,5 +53,31 @@ public class Controller {
         return un.convertTOJson( un.Redo());
     }
 
+    @GetMapping("/savexml")
+    public String saveXML(@RequestParam String path) {
+        Save save=new Save();
+        System.out.println(path);
+        save.savexml(path);
+
+        return "done";
+    }
+    @GetMapping("/savejson")
+    public String SaveJSON(@RequestParam String path) {
+        Save save = new Save();
+        save.savejson(path);
+        return "done";
+    }
+
+    @GetMapping("/loadxml")
+    public String loadXML(@RequestParam String path) {
+        Load load = new Load();
+        return load.loadxml(path);
+    }
+    @GetMapping("/loadjson")
+    public  String loadJSON(@RequestParam String path) throws IOException {
+        Load load = new Load();
+        return load.loadjson(path);
+    }
+
 
 }

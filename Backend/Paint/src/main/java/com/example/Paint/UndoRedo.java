@@ -47,12 +47,12 @@ public class UndoRedo {
 
     }
     //to convert our hashmap to json to be send to the front in form of json
-    public String convertTOJson (HashMap<Long,String[]>unre){
+    public String convertTOJson (HashMap<Long,String[]>map){
         ObjectMapper mapper = new ObjectMapper();
         String json="";
         try
         {//Convert Map to JSON
-            json = mapper.writeValueAsString(unre);
+            json = mapper.writeValueAsString(map);
             //Print JSON output
 
         } catch (IOException e) {
@@ -69,17 +69,15 @@ public class UndoRedo {
             int j = length;
             for (int i = 0; i < length; i++) {
                 b[j - 1] = keys[i];
-                j = j - 1;
+                j--;
             }
             for (int i = 0; i < length; i++) {
                 keys[i] = b[i];
             }
-
             undo.put(keys[length-1], redo.get(keys[length-1]));
 
             redo.remove(keys[length-1]);
         }
-        System.out.println(undo+ "undo HERE");
 
         return undo;
     }
